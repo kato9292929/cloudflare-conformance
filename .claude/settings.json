@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "_note": "PLACEHOLDER for the org-wide shared .claude template. The M0 brief calls for the 'existing all-repos common template' to be placed here; that template was not available in this build environment, so this is a minimal stand-in. Replace with the canonical org template when available.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node --version >/dev/null 2>&1 && echo 'cloudflare-conformance: node ok. Run: npm test | npm run matrix:check' || echo 'cloudflare-conformance: node not found'"
+          }
+        ]
+      }
+    ]
+  }
+}

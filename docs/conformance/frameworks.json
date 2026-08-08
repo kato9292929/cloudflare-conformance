@@ -1,0 +1,35 @@
+{
+  "_comment": "Canonical registry of the five Cloudflare agent-economy frameworks this repo records against. The matrix generator reads this so every framework appears in matrix.md even when it carries no tags yet. Slugs are used as the framework= value in CONFORMANCE-TAG markers and as the record filename docs/conformance/<slug>.md.",
+  "frameworks": [
+    {
+      "slug": "monetization-gateway",
+      "title": "Monetization Gateway",
+      "milestone": "M2",
+      "public_status": "Announced 2026-07-01, waitlist, pre-GA (per task brief; primary source unretrieved from this environment)"
+    },
+    {
+      "slug": "cloudflare-wallets",
+      "title": "Cloudflare Wallets / cloudflare.pay",
+      "milestone": "M3",
+      "public_status": "Announced 2026-08-04, handle reservation only; funding/spend/API spec unpublished (per task brief; primary source unretrieved)"
+    },
+    {
+      "slug": "web-bot-auth",
+      "title": "Web Bot Auth",
+      "milestone": "M1",
+      "public_status": "Spec/docs published; Cloudflare directory registration by application (per task brief; primary source unretrieved)"
+    },
+    {
+      "slug": "content-signals",
+      "title": "Content Signals / AI Crawl Control",
+      "milestone": "M4",
+      "public_status": "Generally available; mixed-use crawler default behavior scheduled to change 2026-09-15 (per task brief; primary source unretrieved)"
+    },
+    {
+      "slug": "deferred-payment",
+      "title": "deferred payment scheme (x402)",
+      "milestone": "M5",
+      "public_status": "Proposal stage to x402 (per task brief; primary source unretrieved)"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "cloudflare-conformance",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Implementation record (not a compliance claim) of x402 Inc.'s conformance work against Cloudflare's agent-economy frameworks.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "matrix": "node scripts/gen-matrix.mjs",
+    "matrix:check": "node scripts/gen-matrix.mjs --check",
+    "test": "node --test",
+    "wba:keygen": "node scripts/wba-keygen.mjs",
+    "wba:sign": "node scripts/wba-sign.mjs",
+    "wba:jwks": "node scripts/wba-jwks.mjs",
+    "x402:check": "node scripts/x402-check.mjs",
+    "allowlist": "node scripts/gen-allowlist.mjs",
+    "signals:parse": "node scripts/parse-signals.mjs",
+    "ledger": "node scripts/gen-ledger.mjs"
+  }
+}

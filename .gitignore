@@ -1,0 +1,9 @@
+node_modules/
+*.log
+.DS_Store
+
+# Generated private keys must never be committed. Public material (JWKS) is
+# generated into out/ and committed as evidence only when explicitly intended.
+*.private.pem
+*.private.jwk.json
+secrets/
