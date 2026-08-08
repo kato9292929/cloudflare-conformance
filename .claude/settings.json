@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "_note": "PLACEHOLDER for the org-wide shared .claude template. The M0 brief calls for the 'existing all-repos common template' to be placed here; that template was not available in this build environment, so this is a minimal stand-in. Replace with the canonical org template when available.",
+  "_note": "PLACEHOLDER for the org-wide shared .claude template. The M0 brief calls for the 'existing all-repos common template' to be placed here. All ~85 repos on the owning account were checked (blobless sparse clones): none contain a populated .claude/ template, so there was nothing to copy in. Per CLAUDE.md (never guess; fail loudly) no template is fabricated. This is a minimal stand-in; replace with the canonical org template when an environment actually has it. See .claude/README.md.",
   "hooks": {
     "SessionStart": [
       {

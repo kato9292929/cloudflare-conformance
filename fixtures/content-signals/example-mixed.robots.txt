@@ -1,0 +1,14 @@
+# Synthetic robots.txt fixture (not a real domain). Exercises RFC 9309 groups,
+# wildcards, an end-anchor, sitemaps, and Content-Signal directives.
+
+User-agent: *
+Content-Signal: search=yes, ai-train=no
+Disallow: /private/
+Allow: /private/public-note.txt
+Disallow: /*.pdf$
+
+User-agent: ExampleAIBot
+Content-Signal: search=yes, ai-input=no, ai-train=no
+Disallow: /
+
+Sitemap: https://example.invalid/sitemap.xml

@@ -1,0 +1,16 @@
+
+> cloudflare-conformance@0.0.0 ledger
+> node scripts/gen-ledger.mjs
+
+gen-ledger: payments=fixtures/deferred-payment/payments.json
+gen-ledger: known settlement types = [immediate]
+
+  [RECORDED] pay-0001 seq=0 10000 base:0x833589fC… settlement=immediate
+  [RECORDED] pay-0002 seq=1 25000 base:0x833589fC… settlement=immediate
+  [RECORDED] pay-0003 seq=2 100000 base:0x833589fC… settlement=immediate
+  [REJECTED] deferred-example settlement=deferred — ledger: unknown settlement.type "deferred" — not registered. Deferred/batch settlement is a proposal with no finalized spec and is intentionally not implemented; register the type explicitly once its spec exists (see docs/conformance/deferred-payment.md).
+
+gen-ledger: totals — count=3
+  base:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 = 135000 (atomic)
+  by settlement type:
+    immediate = 135000 (atomic)

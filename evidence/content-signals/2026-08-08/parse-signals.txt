@@ -1,0 +1,34 @@
+
+> cloudflare-conformance@0.0.0 signals:parse
+> node scripts/parse-signals.mjs --dir fixtures/content-signals
+
+
+=== fixtures/content-signals/example-mixed.robots.txt ===
+groups=2 sitemaps=1
+  user-agents: *  rules=3
+  user-agents: exampleaibot  rules=1
+  access decisions (RFC 9309):
+    [DENY ] ExampleAIBot /  <- disallow /
+    [DENY ] SomeOtherBot /private/secret.txt  <- disallow /private/
+    [ALLOW] SomeOtherBot /private/public-note.txt  <- allow /private/public-note.txt
+    [DENY ] SomeOtherBot /docs/report.pdf  <- disallow /*.pdf$
+    [ALLOW] SomeOtherBot /index.html  <- no rule (default allow)
+  content-signals (extracted, NOT interpreted):
+    - search=yes  recognized=true
+    - ai-train=no  recognized=true
+    - search=yes  recognized=true
+    - ai-input=no  recognized=true
+    - ai-train=no  recognized=true
+
+=== fixtures/content-signals/example-open.robots.txt ===
+groups=1 sitemaps=0
+  user-agents: *  rules=1
+  access decisions (RFC 9309):
+    [ALLOW] ExampleAIBot /  <- no rule (default allow)
+    [ALLOW] SomeOtherBot /private/secret.txt  <- no rule (default allow)
+    [ALLOW] SomeOtherBot /private/public-note.txt  <- no rule (default allow)
+    [ALLOW] SomeOtherBot /docs/report.pdf  <- no rule (default allow)
+    [ALLOW] SomeOtherBot /index.html  <- no rule (default allow)
+  content-signals (extracted, NOT interpreted):
+    (none)
+

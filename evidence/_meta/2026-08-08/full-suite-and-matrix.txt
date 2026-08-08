@@ -1,0 +1,136 @@
+### npm test (full suite) ###
+# Subtest: parseRobotsTxt: splits into groups, sitemaps, content-signal lines
+ok 1 - parseRobotsTxt: splits into groups, sitemaps, content-signal lines
+# Subtest: matchesPattern: supports prefix, `*`, and `$` end-anchor
+ok 2 - matchesPattern: supports prefix, `*`, and `$` end-anchor
+# Subtest: selectGroup: most-specific product token wins, `*` is fallback
+ok 3 - selectGroup: most-specific product token wins, `*` is fallback
+# Subtest: isAllowed: RFC 9309 decisions incl. allow-wins-on-longer-match
+ok 4 - isAllowed: RFC 9309 decisions incl. allow-wins-on-longer-match
+# Subtest: isAllowed: empty Disallow means fully open
+ok 5 - isAllowed: empty Disallow means fully open
+# Subtest: extractContentSignals: extracts pairs, flags recognized tokens, no interpretation
+ok 6 - extractContentSignals: extracts pairs, flags recognized tokens, no interpretation
+# Subtest: extractContentSignals: a token with no value is surfaced, not dropped
+ok 7 - extractContentSignals: a token with no value is surfaced, not dropped
+# Subtest: source boundary: local reads, network throws (egress-blocked, PENDING-B)
+ok 8 - source boundary: local reads, network throws (egress-blocked, PENDING-B)
+# Subtest: policy + ledger: running ledger total enforces the policy total cap
+ok 9 - policy + ledger: running ledger total enforces the policy total cap
+# Subtest: policy + ledger: a denied payment is never recorded (ledger stays consistent)
+ok 10 - policy + ledger: a denied payment is never recorded (ledger stays consistent)
+# Subtest: ledger: records immediate settlements and totals with BigInt math
+ok 11 - ledger: records immediate settlements and totals with BigInt math
+# Subtest: ledger: fails loudly on bad shape and duplicate id
+ok 12 - ledger: fails loudly on bad shape and duplicate id
+# Subtest: ledger: an unregistered settlement type (deferred) is REJECTED, not guessed
+ok 13 - ledger: an unregistered settlement type (deferred) is REJECTED, not guessed
+# Subtest: ledger: settlement.type is a real extension point (schema unchanged)
+ok 14 - ledger: settlement.type is a real extension point (schema unchanged)
+# Subtest: ledger: matches the fixture — 3 immediate recorded, deferred rejected
+ok 15 - ledger: matches the fixture — 3 immediate recorded, deferred rejected
+# Subtest: parseMarker: valid marker with all fields
+ok 16 - parseMarker: valid marker with all fields
+# Subtest: parseMarker: ref/id optional, summary can contain extra pipes
+ok 17 - parseMarker: ref/id optional, summary can contain extra pipes
+# Subtest: parseMarker: strips trailing comment terminators
+ok 18 - parseMarker: strips trailing comment terminators
+# Subtest: parseMarker: fails loudly on unknown label (typo)
+ok 19 - parseMarker: fails loudly on unknown label (typo)
+# Subtest: parseMarker: fails loudly on missing framework
+ok 20 - parseMarker: fails loudly on missing framework
+# Subtest: parseMarker: fails loudly on empty summary
+ok 21 - parseMarker: fails loudly on empty summary
+# Subtest: looksLikeMarker: real markers vs prose references
+ok 22 - looksLikeMarker: real markers vs prose references
+# Subtest: render: empty state shows all five frameworks with no markers
+ok 23 - render: empty state shows all five frameworks with no markers
+# Subtest: render: counts land in the summary row for the right framework
+ok 24 - render: counts land in the summary row for the right framework
+# Subtest: validatePolicy: accepts the sample and fails loudly on bad input
+ok 25 - validatePolicy: accepts the sample and fails loudly on bad input
+# Subtest: buildAllowlist: converts caps + payees to atomic units, applies overrides
+ok 26 - buildAllowlist: converts caps + payees to atomic units, applies overrides
+# Subtest: evaluatePayment: allows a payment within all caps
+ok 27 - evaluatePayment: allows a payment within all caps
+# Subtest: evaluatePayment: denies over per-transaction cap
+ok 28 - evaluatePayment: denies over per-transaction cap
+# Subtest: evaluatePayment: denies over payee-override cap (search, 0.100)
+ok 29 - evaluatePayment: denies over payee-override cap (search, 0.100)
+# Subtest: evaluatePayment: denies a payee not on the allowlist
+ok 30 - evaluatePayment: denies a payee not on the allowlist
+# Subtest: evaluatePayment: denies when the running total cap would be exceeded
+ok 31 - evaluatePayment: denies when the running total cap would be exceeded
+# Subtest: evaluatePayment: denies on network / asset mismatch when specified
+ok 32 - evaluatePayment: denies on network / asset mismatch when specified
+# Subtest: evaluatePayment: throws (not denies) on a malformed amount
+ok 33 - evaluatePayment: throws (not denies) on a malformed amount
+# Subtest: adapter: localAllowlistProvider authorizes and exports consistently
+ok 34 - adapter: localAllowlistProvider authorizes and exports consistently
+# Subtest: adapter: cloudflareWalletsProvider is intentionally unimplemented (throws, no guess)
+ok 35 - adapter: cloudflareWalletsProvider is intentionally unimplemented (throws, no guess)
+# Subtest: keys: Ed25519 keypair exports OKP JWK with stable thumbprint kid
+ok 36 - keys: Ed25519 keypair exports OKP JWK with stable thumbprint kid
+# Subtest: sign+verify: round-trip succeeds and reports covered components
+ok 37 - sign+verify: round-trip succeeds and reports covered components
+# Subtest: verify: tampering with the request path is rejected (throws, no fallback)
+ok 38 - verify: tampering with the request path is rejected (throws, no fallback)
+# Subtest: verify: a flipped signature byte is rejected
+ok 39 - verify: a flipped signature byte is rejected
+# Subtest: constraint: signing with @query-params or @status throws (Cloudflare rule)
+ok 40 - constraint: signing with @query-params or @status throws (Cloudflare rule)
+# Subtest: constraint: assertAllowedComponents rejects disallowed, allows normal
+ok 41 - constraint: assertAllowedComponents rejects disallowed, allows normal
+# Subtest: constraint: verifier rejects an inbound signature that covers @status
+ok 42 - constraint: verifier rejects an inbound signature that covers @status
+# Subtest: no-fallback: missing headers throw rather than returning a permissive result
+ok 43 - no-fallback: missing headers throw rather than returning a permissive result
+# Subtest: verify: expired signature is rejected
+ok 44 - verify: expired signature is rejected
+# Subtest: verify: unknown keyid fails loudly
+ok 45 - verify: unknown keyid fails loudly
+# Subtest: directory: JWKS build + resolver drives a successful verify
+ok 46 - directory: JWKS build + resolver drives a successful verify
+# Subtest: directory: duplicate kid rejected
+ok 47 - directory: duplicate kid rejected
+# Subtest: sfv: inner list serialize/parse round-trip
+ok 48 - sfv: inner list serialize/parse round-trip
+# Subtest: signature base: deterministic and shaped per RFC 9421
+ok 49 - signature base: deterministic and shaped per RFC 9421
+# Subtest: decimalToAtomic: exact string/BigInt math, no float error
+ok 50 - decimalToAtomic: exact string/BigInt math, no float error
+# Subtest: rules: resolveRule matches exact and prefix, merges defaults
+ok 51 - rules: resolveRule matches exact and prefix, merges defaults
+# Subtest: rules: validateRules fails loudly on bad schema / bad amount
+ok 52 - rules: validateRules fails loudly on bad schema / bad amount
+# Subtest: checker: a valid fixture passes cleanly
+ok 53 - checker: a valid fixture passes cleanly
+# Subtest: checker: amount mismatch is reported
+ok 54 - checker: amount mismatch is reported
+# Subtest: checker: bad status + content-type + missing field + non-atomic amount all reported
+ok 55 - checker: bad status + content-type + missing field + non-atomic amount all reported
+# Subtest: checker: 402 without a matching rule is flagged
+ok 56 - checker: 402 without a matching rule is flagged
+# Subtest: checker: does not swallow a non-object body
+ok 57 - checker: does not swallow a non-object body
+# Subtest: adapter: localProvider builds x402 accepts consistent with the checker
+ok 58 - adapter: localProvider builds x402 accepts consistent with the checker
+# Subtest: adapter: localProvider returns null for an unpriced path
+ok 59 - adapter: localProvider returns null for an unpriced path
+# Subtest: adapter: gatewayProvider is intentionally unimplemented (throws, no guess)
+ok 60 - adapter: gatewayProvider is intentionally unimplemented (throws, no guess)
+# Subtest: adapter: ruleToAccept shape
+ok 61 - adapter: ruleToAccept shape
+# tests 61
+# suites 0
+# pass 61
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 417.345571
+
+### npm run matrix:check ###
+
+
+matrix.md is up to date (17 markers).

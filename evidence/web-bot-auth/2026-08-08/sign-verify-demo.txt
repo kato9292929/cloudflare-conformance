@@ -1,0 +1,13 @@
+
+=== signature base ===
+"@authority": api.example.test
+"signature-agent": "https://x402.example/keys"
+"@signature-params": ("@authority" "signature-agent");created=1754000000;expires=1754000300;keyid="yt-5LwUysV9gt7Scet9ClkskRCIxMQ0R_BlOirIzqWo";alg="ed25519";tag="web-bot-auth"
+
+=== headers ===
+Signature-Input: sig1=("@authority" "signature-agent");created=1754000000;expires=1754000300;keyid="yt-5LwUysV9gt7Scet9ClkskRCIxMQ0R_BlOirIzqWo";alg="ed25519";tag="web-bot-auth"
+Signature: sig1=:Vx2yJl2MLD17KvnZqUrzqhD0o8bRPrELZBsGhJrdHo2FxaGvMVRy74MoLXhKtL8rKxJ6v//DXmZlQdMrojj/CQ==:
+Signature-Agent: "https://x402.example/keys"
+
+=== verify ===
+valid=true keyid=yt-5LwUysV9gt7Scet9ClkskRCIxMQ0R_BlOirIzqWo components=["@authority","signature-agent"]

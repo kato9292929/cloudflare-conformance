@@ -1,0 +1,49 @@
+{
+  "_note": "Synthetic sequence of agent payment events (not real). Each is an immediate settlement — the only type this repo implements. The `deferred-example` entry below is intentionally present to show it is REJECTED, not silently accepted (deferred settlement is an unfinalized x402 proposal).",
+  "payments": [
+    {
+      "id": "pay-0001",
+      "ts": "2026-08-08T00:00:01Z",
+      "payeeId": "x402inc-data-api",
+      "payTo": "0x1111111111111111111111111111111111111111",
+      "amountAtomic": "10000",
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "network": "base",
+      "settlement": { "type": "immediate", "settledRef": "0xabc0001" },
+      "ref": "x402:receipt:0001"
+    },
+    {
+      "id": "pay-0002",
+      "ts": "2026-08-08T00:00:05Z",
+      "payeeId": "x402inc-search-api",
+      "payTo": "0x2222222222222222222222222222222222222222",
+      "amountAtomic": "25000",
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "network": "base",
+      "settlement": { "type": "immediate" },
+      "ref": "x402:receipt:0002"
+    },
+    {
+      "id": "pay-0003",
+      "ts": "2026-08-08T00:00:09Z",
+      "payeeId": "x402inc-finance-api",
+      "payTo": "0x3333333333333333333333333333333333333333",
+      "amountAtomic": "100000",
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "network": "base",
+      "settlement": { "type": "immediate", "settledRef": "0xabc0003" },
+      "ref": "x402:receipt:0003"
+    },
+    {
+      "id": "deferred-example",
+      "ts": "2026-08-08T00:00:12Z",
+      "payeeId": "x402inc-data-api",
+      "payTo": "0x1111111111111111111111111111111111111111",
+      "amountAtomic": "10000",
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "network": "base",
+      "settlement": { "type": "deferred" },
+      "ref": "x402:receipt:0004"
+    }
+  ]
+}

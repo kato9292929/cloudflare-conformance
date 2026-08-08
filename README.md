@@ -15,15 +15,19 @@ record that writes the unverified as unverified is a valid deliverable.
    acceptance of an application). All Category B items are unconsumed and are
    marked `PENDING-B`. See each `docs/conformance/<framework>.md`.
 
-2. **Primary sources could not be retrieved here.** This build environment's
-   network egress policy blocks Cloudflare domains. Every primary source was
-   requested on 2026-08-08 and returned `EGRESS_BLOCKED`
-   ([log](evidence/_meta/2026-08-08/source-retrieval-attempts.txt)). Because we
-   could not read the primary sources, **nothing Cloudflare-specific is labeled
-   `VERIFIED`** — primary-source confirmation is itself treated as Category B.
-   The code implements against stable open standards (RFC 9421, RFC 8032,
-   RFC 7517, RFC 9309, HTTP 402); Cloudflare-specific deviations are `PENDING-B`
-   or `UNVERIFIED`. See [`docs/sources.md`](docs/sources.md).
+2. **Primary sources were retrieved out-of-environment.** This build
+   environment's egress policy blocks Cloudflare domains, so every in-environment
+   request returned `EGRESS_BLOCKED`
+   ([log](evidence/_meta/2026-08-08/source-retrieval-attempts.txt)); that
+   unreachability is kept on record. The primary sources were then obtained
+   outside the environment and recorded as **S1–S9** in
+   [`docs/sources.md`](docs/sources.md). Claims a retrieved source actually
+   confirms are now labeled **`VERIFIED` with a source ID**; everything not
+   retrieved (signed-agents docs/blog, the architecture-draft body, Content
+   Signals token vocabulary, the Gateway rule schema, the Wallets API/schema,
+   the deferred-payment proposal body) stays `PENDING-B`/`UNVERIFIED`. Live
+   reachability, key issuance, and application acceptance remain Category B
+   regardless.
 
 ## The five frameworks
 

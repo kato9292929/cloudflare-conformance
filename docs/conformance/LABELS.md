@@ -17,29 +17,39 @@ hand-maintained list.
 
 This repository was built in an execution environment whose network egress
 policy **blocks Cloudflare domains** (`developers.cloudflare.com`,
-`blog.cloudflare.com`, `www.cloudflare.com` — see `docs/sources.md` for the
-retrieval attempt log). Package registries are reachable; the open web is not.
+`blog.cloudflare.com`, `www.cloudflare.com`). Package registries are reachable;
+the open web is not. Because that block is real and worth recording, the
+per-URL "unreachable from this environment" log is preserved at the end of
+`docs/sources.md`.
 
-Consequence, applied honestly:
+The primary sources were later **retrieved out-of-environment** and recorded as
+S1–S9 in `docs/sources.md`. This changed the labeling as follows:
 
-- **We do not mark Cloudflare-specific claims `VERIFIED`.** The `VERIFIED` label
-  requires that we retrieved the primary source and recorded the exact text.
-  We could not retrieve any primary source from here, so no Cloudflare-specific
-  statement earns `VERIFIED` in this pass.
-- **Primary-source confirmation is itself treated as Category B.** Items whose
-  correctness rests on a Cloudflare doc we could not read are marked `PENDING-B`
-  with a note that the blocker is egress, not merely a live service.
-- **Open standards** the code implements against (RFC 9421 HTTP Message
-  Signatures, RFC 8032 Ed25519, RFC 7517 JWK, RFC 9309 robots.txt, the HTTP 402
-  status) are named in comments as the spec basis. These are stable, widely
-  implemented standards; where a detail is Cloudflare-specific rather than from
-  the base RFC, it is labeled `PENDING-B` or `UNVERIFIED`, not `VERIFIED`.
+- **Confirmed Cloudflare-specific claims are now `VERIFIED`, with a source ID.**
+  A `VERIFIED` marker cites the source (e.g. `ref=S1`) that contains the
+  statement. Promotion is limited to what a retrieved source actually says —
+  see each framework record's "VERIFIED" section.
+- **What was NOT retrieved stays `PENDING-B` / `UNVERIFIED`.** signed-agents
+  docs/blog, the S5 architecture-draft body, the Content Signals token
+  vocabulary, the Monetization Gateway rule schema, the Cloudflare Wallets
+  API/schema, and the deferred-payment proposal body were not obtained; claims
+  resting on them are not promoted.
+- **Live reachability, key issuance, and application acceptance remain
+  Category B** (`PENDING-B`) regardless of source retrieval — retrieving a doc
+  does not exercise a live service.
+- **Open standards** the code implements against (RFC 9421, RFC 8032, RFC 7517,
+  RFC 9309, HTTP 402) are named in comments as the spec basis; Cloudflare-specific
+  deviations are `PENDING-B` or `UNVERIFIED` unless a retrieved source confirms
+  them.
 - **Schemas we invented** (allowlist output, billing-rules file, ledger records)
-  are `UNVERIFIED`, and their field names deliberately avoid mimicking Cloudflare
-  terminology so they cannot be mistaken for confirmed spec.
+  stay `UNVERIFIED` at the field-name/type level, even where a source confirms
+  that the underlying *control* exists (e.g. S9 confirms the three Wallet
+  guardrails exist, but not their encoding). Their field names deliberately
+  avoid mimicking Cloudflare terminology.
 
 This is the intended posture of the deliverable: *a record that writes the
-unverified as unverified is itself a valid deliverable.*
+unverified as unverified — and cites a source for what it does verify — is
+itself a valid deliverable.*
 
 ## Marker syntax
 

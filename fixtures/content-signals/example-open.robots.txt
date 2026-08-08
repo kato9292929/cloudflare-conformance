@@ -1,0 +1,3 @@
+# Synthetic robots.txt fixture: fully open, no content signals.
+User-agent: *
+Disallow:

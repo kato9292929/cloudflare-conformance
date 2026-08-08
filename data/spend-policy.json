@@ -1,0 +1,30 @@
+{
+  "schema": "x402inc.spend-policy/v0",
+  "_schema_note": "SELF-DEFINED schema (UNVERIFIED) and clearly-synthetic sample. x402 Inc.'s implementation-independent statement of which payees an agent may pay and up to what caps. It is deliberately NOT modeled on any Cloudflare Wallets terminology (the funding/spend/API spec is unpublished — handle reservation only). Real inputs (e.g. an endpoint repo's data/endpoints.json) are passed to scripts/gen-allowlist.mjs as a CLI argument, not committed here.",
+  "caps": {
+    "currency": "USDC",
+    "network": "base",
+    "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "assetDecimals": 6,
+    "perTransactionMax": "0.500",
+    "totalMax": "5.000"
+  },
+  "payees": [
+    {
+      "id": "x402inc-data-api",
+      "payTo": "0x1111111111111111111111111111111111111111",
+      "label": "x402 Inc. data API (synthetic)"
+    },
+    {
+      "id": "x402inc-search-api",
+      "payTo": "0x2222222222222222222222222222222222222222",
+      "label": "x402 Inc. search API (synthetic)",
+      "perTransactionMax": "0.100"
+    },
+    {
+      "id": "x402inc-finance-api",
+      "payTo": "0x3333333333333333333333333333333333333333",
+      "label": "x402 Inc. finance API (synthetic)"
+    }
+  ]
+}

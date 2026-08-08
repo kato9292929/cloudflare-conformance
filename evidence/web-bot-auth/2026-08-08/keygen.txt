@@ -1,0 +1,2 @@
+kid: yt-5LwUysV9gt7Scet9ClkskRCIxMQ0R_BlOirIzqWo
+wrote out/web-bot-auth/private.jwk.json (0600, gitignored) and out/web-bot-auth/public.jwk.json

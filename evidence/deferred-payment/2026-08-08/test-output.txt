@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: ledger: records immediate settlements and totals with BigInt math
+ok 1 - ledger: records immediate settlements and totals with BigInt math
+  ---
+  duration_ms: 1.649592
+  type: 'test'
+  ...
+# Subtest: ledger: fails loudly on bad shape and duplicate id
+ok 2 - ledger: fails loudly on bad shape and duplicate id
+  ---
+  duration_ms: 0.811183
+  type: 'test'
+  ...
+# Subtest: ledger: an unregistered settlement type (deferred) is REJECTED, not guessed
+ok 3 - ledger: an unregistered settlement type (deferred) is REJECTED, not guessed
+  ---
+  duration_ms: 4.648687
+  type: 'test'
+  ...
+# Subtest: ledger: settlement.type is a real extension point (schema unchanged)
+ok 4 - ledger: settlement.type is a real extension point (schema unchanged)
+  ---
+  duration_ms: 0.348441
+  type: 'test'
+  ...
+# Subtest: ledger: matches the fixture — 3 immediate recorded, deferred rejected
+ok 5 - ledger: matches the fixture — 3 immediate recorded, deferred rejected
+  ---
+  duration_ms: 0.522422
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 156.755424
