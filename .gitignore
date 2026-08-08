@@ -2,8 +2,11 @@ node_modules/
 *.log
 .DS_Store
 
-# Generated private keys must never be committed. Public material (JWKS) is
-# generated into out/ and committed as evidence only when explicitly intended.
-*.private.pem
+# Build/generated output, including private keys. Public material (public JWK,
+# JWKS) is copied into evidence/ explicitly; the working out/ dir is never
+# committed so a private key can never leak in.
+out/
+*.pem
+private.jwk.json
 *.private.jwk.json
 secrets/
