@@ -1,11 +1,14 @@
 # Content Signals / AI Crawl Control
 
 ## 対象仕様
-- pay per crawl (blog): https://blog.cloudflare.com/introducing-pay-per-crawl/ — 参照試行 2026-08-08, **取得不可（egress blocked）**
-- verified bots (docs): https://developers.cloudflare.com/bots/concepts/bot/verified-bots/ — 参照試行 2026-08-08, **取得不可**
+一次情報は**実行環境外で**取得した（経緯は `docs/sources.md` 末尾）。取得済みの関連ソース:
+- **S8** AI Crawl Control worker templates (docs): https://developers.cloudflare.com/ai-crawl-control/reference/worker-templates — 参照日 2026-08-08（取得済）。AI Crawl Controlの位置づけと `x402-proxy` テンプレートによる支払いゲートを確認。**ただしContent Signalsのトークン語彙・意味は本ソースにも書かれていない。**
+
+未取得（据え置き）: Content Signals Policy のトークン語彙定義元、pay per crawl (blog) https://blog.cloudflare.com/introducing-pay-per-crawl/、verified bots (docs) https://developers.cloudflare.com/bots/concepts/bot/verified-bots/。
+
 - 実装が依拠する公開標準: RFC 9309 (Robots Exclusion Protocol)。Content Signals はrobots.txt上のディレクティブ／コメント規約として解釈する。
 
-公開状態: 提供中。2026-09-15にmixed-useクローラーのデフォルト挙動が変更予定（タスク前提）。**この変更予定挙動をコードで断定しない。** 事実と一次情報URLのみ記録に残す。
+公開状態: 提供中。2026-09-15にmixed-useクローラーのデフォルト挙動が変更予定（タスク前提）。**この変更予定挙動をコードで断定しない。** 事実と一次情報URLのみ記録に残す。トークン語彙の一次情報は未取得のため、`RECOGNIZED_TOKENS` の解釈は `UNVERIFIED` のまま据え置く。
 
 <!-- CONFORMANCE-TAG: PENDING-B | framework=content-signals | 2026-09-15 mixed-use crawler default change: recorded as a scheduled fact only; behavior NOT asserted in code; primary source unretrieved | ref=https://blog.cloudflare.com/introducing-pay-per-crawl/ -->
 

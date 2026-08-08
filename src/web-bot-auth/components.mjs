@@ -8,12 +8,15 @@
 //
 // @status is a RESPONSE component (meaningless on a request) and @query-param is
 // query-dependent; both are rejected here, and a test asserts the rejection.
-// The rejection is treated as PENDING-B because the source of the constraint
-// (Cloudflare docs) could not be retrieved to quote verbatim.
+//
+// The constraint is now confirmed against the Cloudflare Web Bot Auth docs (S1,
+// retrieved out-of-environment 2026-08-08, see docs/sources.md): including
+// @query-params makes verification fail (Cloudflare recommends @query instead),
+// and @status is unsupported because it cannot be part of a request.
 //
 // Spec basis: RFC 9421 §2.2 (derived components), §2.1 (HTTP fields).
 
-// CONFORMANCE-TAG: PENDING-B | framework=web-bot-auth | Component selector rejects @query-param(s) and @status per the documented Cloudflare constraint; exact doc wording not retrieved (egress blocked), so not marked VERIFIED | ref=https://developers.cloudflare.com/bots/reference/bot-verification/web-bot-auth
+// CONFORMANCE-TAG: VERIFIED | framework=web-bot-auth | Cloudflare's Web Bot Auth docs state @query-params makes verification fail (use @query) and @status is unsupported on requests; the selector rejects both | ref=S1
 export const DISALLOWED_COMPONENTS = new Set(['@query-param', '@query-params', '@status']);
 
 const DEFAULT_PORTS = { 'http:': '80', 'https:': '443' };

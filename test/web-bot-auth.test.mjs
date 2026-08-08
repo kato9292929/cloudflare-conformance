@@ -108,6 +108,25 @@ test('constraint: signing with @query-params or @status throws (Cloudflare rule)
   }
 });
 
+test('constraint (S1): Signature-Agent must be https and included in components', () => {
+  const { publicKey, privateKey } = generateKeyPair();
+  const jwk = publicKeyToJwk(publicKey);
+  const req = { method: 'GET', url: 'https://api.example.test/v1/data', headers: {} };
+  // Non-https Signature-Agent is rejected.
+  assert.throws(
+    () => signRequest(req, { privateKey, keyid: jwk.kid, signatureAgent: 'http://x402.example/keys', created: CREATED }),
+    /https:\/\/ URI/
+  );
+  // An explicit components override that omits signature-agent is rejected.
+  assert.throws(
+    () => signRequest(req, { privateKey, keyid: jwk.kid, signatureAgent: 'https://x402.example/keys', created: CREATED, components: ['@authority', '@method'] }),
+    /signature-agent must be included/
+  );
+  // The happy path still produces a quoted SF String Signature-Agent header.
+  const ok = signRequest(req, { privateKey, keyid: jwk.kid, signatureAgent: 'https://x402.example/keys', created: CREATED });
+  assert.equal(ok.headers['Signature-Agent'], '"https://x402.example/keys"');
+});
+
 test('constraint: assertAllowedComponents rejects disallowed, allows normal', () => {
   assert.throws(() => assertAllowedComponents(['@authority', '@status']), /not allowed/);
   assert.throws(() => assertAllowedComponents(['@query-param;name="x"']), /not allowed/);

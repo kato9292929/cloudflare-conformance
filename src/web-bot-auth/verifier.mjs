@@ -38,10 +38,15 @@ export function verifyRequest(request, keyResolver, { now } = {}) {
   const alg = params.get('alg');
   if (alg !== 'ed25519') throw new Error(`verify: unsupported or missing alg "${alg}" (only ed25519)`);
 
+  // Cloudflare's verification checks that the Signature-Input keyid points to a
+  // key it already knows, and rejects a signature whose expires is already past
+  // by the time the request reaches its servers (S1, S2). This verifier does the
+  // same: an unresolvable keyid and an elapsed expires each fail loudly.
+  // CONFORMANCE-TAG: VERIFIED | framework=web-bot-auth | Cloudflare checks that keyid resolves to a known key and rejects an already-expired `expires`; this verifier enforces both (unknown keyid and elapsed expires each throw) | ref=S1,S2
   const keyid = params.get('keyid');
   if (!keyid) throw new Error('verify: missing keyid parameter');
 
-  // Optional expiry enforcement — if present and past, fail (do not accept).
+  // Expiry enforcement — if present and past, fail (do not accept).
   const expires = params.get('expires');
   if (expires !== undefined) {
     const clock = now ?? Math.floor(Date.now() / 1000);

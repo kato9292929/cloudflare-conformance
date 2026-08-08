@@ -10,7 +10,15 @@
 // confirmed spec. Mapping this onto a real Virtual Wallet is Category B — see
 // wallet-adapter.mjs.
 //
-// CONFORMANCE-TAG: UNVERIFIED | framework=cloudflare-wallets | spend-policy input (x402inc.spend-policy/v0) and payee-allowlist output (x402inc.payee-allowlist/v0) are self-defined and implementation-independent; Cloudflare Wallets funding/spend/API spec is unpublished (handle reservation only) so no field is modeled on it | ref=data/spend-policy.json
+// The THREE control TYPES modeled below — a total spending cap, an approved-payee
+// (merchant) list, and a per-transaction limit an agent cannot exceed on its own —
+// are confirmed as the Virtual Wallet guardrails in Cloudflare's press release (S9).
+// CONFORMANCE-TAG: VERIFIED | framework=cloudflare-wallets | Cloudflare Wallets Virtual Wallets ship with guardrails a user defines: a spending cap, an approved-merchant list, and a per-transaction limit — the three controls this policy models | ref=S9
+//
+// The SCHEMA ENCODING (field names, types) of the input policy and the generated
+// allowlist is SELF-DEFINED: the funding/spend/API spec is unpublished (handle
+// reservation only), so no field is modeled on Cloudflare's terminology.
+// CONFORMANCE-TAG: UNVERIFIED | framework=cloudflare-wallets | spend-policy input (x402inc.spend-policy/v0) and payee-allowlist output (x402inc.payee-allowlist/v0) field names/types are self-defined; Cloudflare Wallets funding/spend/API spec is unpublished (handle reservation only) so no field is modeled on it | ref=data/spend-policy.json
 
 import { readFileSync } from 'node:fs';
 import { decimalToAtomic } from '../x402/rules.mjs';

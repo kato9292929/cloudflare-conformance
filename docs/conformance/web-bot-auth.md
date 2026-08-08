@@ -1,14 +1,20 @@
 # Web Bot Auth
 
 ## 対象仕様
-- Cloudflare Web Bot Auth (docs): https://developers.cloudflare.com/bots/reference/bot-verification/web-bot-auth — 参照試行 2026-08-08, **取得不可（egress blocked）**
-- signed agents (docs): https://developers.cloudflare.com/bots/concepts/bot/signed-agents — 参照試行 2026-08-08, **取得不可**
-- signed agents (blog): https://blog.cloudflare.com/signed-agents/ — 参照試行 2026-08-08, **取得不可**
-- 実装が依拠する公開標準: RFC 9421 (HTTP Message Signatures), RFC 8032 (Ed25519), RFC 7517/8037 (JWK / OKP)。詳細は `docs/sources.md`。
+一次情報は**実行環境外で**取得した（環境内からは egress 遮断で到達不可。経緯は `docs/sources.md` 末尾）。取得済みソース:
+- **S1** Web Bot Auth (docs): https://developers.cloudflare.com/bots/reference/bot-verification/web-bot-auth — 参照日 2026-08-08（取得済）
+- **S2** verified bots with cryptography (blog): https://blog.cloudflare.com/verified-bots-with-cryptography/ — 参照日 2026-08-08（取得済）
+- **S3** web-bot-auth 参照実装 (repo): https://github.com/cloudflare/web-bot-auth — 参照日 2026-08-08（取得済）
+- **S4** Signature Agent Card / registry (IETF draft): https://www.ietf.org/archive/id/draft-meunier-webbotauth-registry-01.html — 参照日 2026-08-08（ドラフト段階・RFCではない）
+- **S5** アーキテクチャドラフト: https://datatracker.ietf.org/doc/html/draft-meunier-web-bot-auth-architecture-04 — 参照日 2026-08-08（**本文未取得**、版数のみ確認）
 
-この環境からCloudflare一次情報を取得できなかったため、Cloudflare固有の記述は `VERIFIED` にしない。RFC準拠の一般機構として実装し、Cloudflare固有の制約は `PENDING-B` とする。
+未取得（据え置き）: signed agents docs (https://developers.cloudflare.com/bots/concepts/bot/signed-agents) と blog (https://blog.cloudflare.com/signed-agents/)。
 
-<!-- CONFORMANCE-TAG: PENDING-B | framework=web-bot-auth | Primary Cloudflare docs (web-bot-auth, signed-agents) not retrievable from this environment (egress blocked); spec text confirmation deferred to a network-enabled environment | ref=docs/sources.md -->
+- 実装が依拠する公開標準: RFC 9421 (HTTP Message Signatures), RFC 8032 (Ed25519), RFC 7517/8037 (JWK / OKP), RFC 7638 (thumbprint)。
+
+S1〜S3で確認できたCloudflare固有の記述（3ヘッダ構成、`Signature-Agent`の形式制約、`@query-params`/`@status`拒否、`keyid`/`expires`の扱い、ディレクトリのパス）は `VERIFIED`（根拠ID併記）に昇格した。本文未取得のS5に依拠する記述、および未取得のsigned agents docs/blogに関わる記述は `PENDING-B` のまま据え置く。
+
+<!-- CONFORMANCE-TAG: PENDING-B | framework=web-bot-auth | signed-agents docs/blog and the S5 architecture-draft BODY were not retrieved; statements resting on them (and live Cloudflare acceptance) stay unconfirmed | ref=docs/sources.md -->
 
 ## 実装したもの
 - `src/web-bot-auth/keys.mjs` — Ed25519鍵生成（Nodeビルトインcrypto）、公開/秘密鍵のOKP JWKエクスポート、RFC 7638サムプリントを`kid`として付与。
@@ -31,17 +37,25 @@
   - 署名ベースがRFC 9421の形に一致（決定的）。
 - 実行コマンドと出力: `evidence/web-bot-auth/2026-08-08/`（`test-output.txt`, `sign-verify-demo.txt`, `keygen.txt`, `jwks-build.txt`, `public.jwk.json`, `jwks.json`）。秘密鍵は`out/`（gitignore）に留め、コミットしない。
 
+## VERIFIED（S1〜S3で裏取り済み）
+一次情報（環境外取得）で確認できたため昇格した。根拠IDはコード内マーカーに併記。
+
+- **3ヘッダ構成**（`Signature` / `Signature-Input` / `Signature-Agent`）→ `VERIFIED`（S1, S2）（`src/web-bot-auth/signer.mjs`）。
+- **`Signature-Agent`の形式制約**（`https://`必須・SF String引用・`Signature-Input`のコンポーネントに含める）→ `VERIFIED`（S1）。`https://`と包含を署名時に強制（`src/web-bot-auth/signer.mjs`）。
+- **`@query-params`/`@status`を署名対象に含めると失敗する制約** → `VERIFIED`（S1）（`src/web-bot-auth/components.mjs`）。
+- **`keyid`が既知鍵を指すことの確認と、失効した`expires`の拒否** → `VERIFIED`（S1, S2）（`src/web-bot-auth/verifier.mjs`）。
+- **ディレクトリのパス** `/.well-known/http-message-signatures-directory` → `VERIFIED`（S3）（`src/web-bot-auth/directory.mjs`）。
+
 ## 未消化（区分B）
 - Cloudflare実サイトへの署名リクエスト受理確認。
 - bots and agents directory への申請と掲載確認。
-- 一次docsの本文取得による、署名対象コンポーネント制約の裏取り。
+- S5（アーキテクチャドラフト）本文、signed agents docs/blogの取得。
 
 ## 自社定義（UNVERIFIED / PENDING-B）
-一次docsを取得できていないため、Cloudflare固有の以下は`VERIFIED`にせず、実装上の既定値として選んだにとどめる。
+一次情報で確定できていない以下は昇格せず据え置く。
 
-- **既定のcovered componentsの集合**（`@authority` + `signature-agent`）。RFC 9421の機構自体は確定だが、Cloudflareが要求する必須集合は未確認 → `PENDING-B`（`src/web-bot-auth/signer.mjs`）。
-- **`@query-params`/`@status`を含めると失敗する制約**。タスク指示書が「docsにある」とする記述に従って実装・テスト化したが、docs本文は未取得 → `PENDING-B`（`src/web-bot-auth/components.mjs`）。
-- **`Signature-Agent`ヘッダ値のSF String（引用符）表現、`tag="web-bot-auth"`、JWKSの提供パス/メディアタイプ** → `PENDING-B`（`src/web-bot-auth/signer.mjs`, `directory.mjs`）。
-- `kid`にRFC 7638サムプリントを用いる点は実装判断（`UNVERIFIED`寄り）。Cloudflareが別の`kid`規約を要求する可能性は未確認。
+- **必須covered componentsの完全な集合**。`signature-agent`を含める必要（S1）は確定だが、それ以外の必須集合と`tag`値の規約は未確認 → `PENDING-B`（`src/web-bot-auth/signer.mjs`）。
+- **ディレクトリ応答のメディアタイプ** → `PENDING-B`（`src/web-bot-auth/directory.mjs`）。パス自体はS3で確定。
+- `kid`にRFC 7638サムプリントを用いる点は実装判断 → `UNVERIFIED`（`src/web-bot-auth/keys.mjs`）。Cloudflareが別の`kid`規約を要求する可能性は未確認（S2は「既知鍵を指すか」を確認するとのみ述べ、`kid`の値の作り方は規定しない）。
 
 これらはいずれもコード内の`CONFORMANCE-TAG`マーカーとして機械可読に残してあり、`docs/conformance/matrix.md`に集約される。

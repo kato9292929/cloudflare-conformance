@@ -8,9 +8,17 @@
 // exists (fail loudly at the process boundary).
 //
 // Spec basis: HTTP 402 (RFC 7231 §6.5.2) and the x402 protocol payment-
-// requirements body (x402Version / accepts[]). The exact x402 field set could
-// not be re-confirmed against the x402 spec from this environment.
-// CONFORMANCE-TAG: PENDING-B | framework=monetization-gateway | 402 body field set checked against x402 v1 from engineering knowledge; x402 spec text and Monetization Gateway's own 402 contract not retrieved (egress blocked) | ref=docs/sources.md
+// requirements body (x402Version / accepts[]).
+//
+// The Monetization Gateway blog (S6) confirms the 402 payload carries the price,
+// the accepted asset, and the payment destination — the checker requires all
+// three (maxAmountRequired / asset / payTo).
+// CONFORMANCE-TAG: VERIFIED | framework=monetization-gateway | Cloudflare's Monetization Gateway 402 payload contains price, accepted asset, and payment destination; the checker requires maxAmountRequired, asset, and payTo | ref=S6
+//
+// The REMAINING fields checked here (x402Version, scheme, network, resource,
+// maxTimeoutSeconds) come from x402 engineering knowledge, not from S6; the full
+// x402 wire contract and Gateway's own 402 contract were not retrieved verbatim.
+// CONFORMANCE-TAG: PENDING-B | framework=monetization-gateway | the full x402 field set beyond price/asset/payTo (x402Version, scheme, network, resource, maxTimeoutSeconds) is checked from engineering knowledge; the x402 spec text and Gateway's exact 402 contract were not retrieved | ref=docs/sources.md
 
 import { resolveRule } from './rules.mjs';
 

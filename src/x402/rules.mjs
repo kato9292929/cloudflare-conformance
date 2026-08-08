@@ -3,8 +3,15 @@
 // checks actual responses against it, and the Gateway adapter (gateway-adapter.mjs)
 // would later map it onto Cloudflare's rule format.
 //
-// The schema is SELF-DEFINED.
-// CONFORMANCE-TAG: UNVERIFIED | framework=monetization-gateway | billing-rules schema (x402inc.billing-rules/v0) is self-defined and implementation-independent; Cloudflare Gateway rule format is unpublished so no field is modeled on it | ref=data/billing-rules.json
+// The billing GRANULARITY modeled here — a price attached to a route and a set of
+// HTTP methods — matches Cloudflare's described Monetization Gateway model of
+// per-route, per-VERB pricing (S6).
+// CONFORMANCE-TAG: VERIFIED | framework=monetization-gateway | Cloudflare's Monetization Gateway prices per route and per HTTP method (VERB); the billing-rules model attaches a price to route (pathExact/pathPrefix) × methods | ref=S6
+//
+// The SCHEMA ENCODING (field names, types, file layout of x402inc.billing-rules/v0)
+// is SELF-DEFINED: Cloudflare's Gateway rule format is unpublished, so no field is
+// modeled on it.
+// CONFORMANCE-TAG: UNVERIFIED | framework=monetization-gateway | billing-rules schema (x402inc.billing-rules/v0) field names/types are self-defined and implementation-independent; Cloudflare Gateway rule format is unpublished so no field is modeled on it | ref=data/billing-rules.json
 
 import { readFileSync } from 'node:fs';
 

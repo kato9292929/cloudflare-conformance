@@ -5,31 +5,31 @@
       "slug": "monetization-gateway",
       "title": "Monetization Gateway",
       "milestone": "M2",
-      "public_status": "Announced 2026-07-01, waitlist, pre-GA (per task brief; primary source unretrieved from this environment)"
+      "public_status": "Announced 2026-07-01, waitlist, pre-GA. Primary sources S6/S7 retrieved out-of-environment; Gateway rule schema unpublished"
     },
     {
       "slug": "cloudflare-wallets",
       "title": "Cloudflare Wallets / cloudflare.pay",
       "milestone": "M3",
-      "public_status": "Announced 2026-08-04, handle reservation only; funding/spend/API spec unpublished (per task brief; primary source unretrieved)"
+      "public_status": "Announced 2026-08-04, handle reservation only; funding/spend/API spec unpublished. Press release S9 retrieved out-of-environment"
     },
     {
       "slug": "web-bot-auth",
       "title": "Web Bot Auth",
       "milestone": "M1",
-      "public_status": "Spec/docs published; Cloudflare directory registration by application (per task brief; primary source unretrieved)"
+      "public_status": "Spec/docs published; Cloudflare directory registration by application. Primary sources S1–S3 retrieved out-of-environment; signed-agents docs/blog and the S5 architecture-draft body not retrieved"
     },
     {
       "slug": "content-signals",
       "title": "Content Signals / AI Crawl Control",
       "milestone": "M4",
-      "public_status": "Generally available; mixed-use crawler default behavior scheduled to change 2026-09-15 (per task brief; primary source unretrieved)"
+      "public_status": "Generally available; mixed-use crawler default behavior scheduled to change 2026-09-15. S8 (AI Crawl Control) retrieved; Content Signals token vocabulary source not retrieved"
     },
     {
       "slug": "deferred-payment",
       "title": "deferred payment scheme (x402)",
       "milestone": "M5",
-      "public_status": "Proposal stage to x402 (per task brief; primary source unretrieved)"
+      "public_status": "Proposal stage to x402; proposal body not retrieved"
     }
   ]
 }

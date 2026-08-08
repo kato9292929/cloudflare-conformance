@@ -3,9 +3,16 @@
 // keys. Verifiers fetch it and match by `kid` (the RFC 7638 thumbprint).
 //
 // Spec basis: RFC 7517 (JWK Set), RFC 8037 (OKP), RFC 7638 (thumbprint/kid).
-// The exact directory path/media-type Cloudflare expects is Web-Bot-Auth-specific
-// and unconfirmed here (egress blocked).
-// CONFORMANCE-TAG: PENDING-B | framework=web-bot-auth | JWKS directory shape follows RFC 7517/8037; Cloudflare's expected directory URL path and media type not confirmed against primary docs | ref=docs/sources.md
+
+// The well-known directory path is confirmed by Cloudflare's reference
+// implementation (S3): the bot directory is exposed at
+// /.well-known/http-message-signatures-directory.
+// CONFORMANCE-TAG: VERIFIED | framework=web-bot-auth | Cloudflare's web-bot-auth reference implementation exposes the key directory at /.well-known/http-message-signatures-directory | ref=S3
+export const DIRECTORY_PATH = '/.well-known/http-message-signatures-directory';
+
+// The JWKS shape follows the RFCs, but the exact media type Cloudflare expects
+// for the directory response was not among the retrieved sources.
+// CONFORMANCE-TAG: PENDING-B | framework=web-bot-auth | JWKS directory shape follows RFC 7517/8037; the directory response media type Cloudflare expects is not confirmed against primary docs | ref=docs/sources.md
 
 import { publicKeyToJwk } from './keys.mjs';
 
