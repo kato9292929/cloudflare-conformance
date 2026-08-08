@@ -1,0 +1,30 @@
+{
+  "schema": "x402inc.payee-allowlist/v0",
+  "generatedFrom": "x402inc.spend-policy/v0",
+  "currency": "USDC",
+  "network": "base",
+  "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+  "assetDecimals": 6,
+  "perTransactionMaxAtomic": "500000",
+  "totalMaxAtomic": "5000000",
+  "payees": [
+    {
+      "id": "x402inc-data-api",
+      "payTo": "0x1111111111111111111111111111111111111111",
+      "label": "x402 Inc. data API (synthetic)",
+      "perTransactionMaxAtomic": "500000"
+    },
+    {
+      "id": "x402inc-search-api",
+      "payTo": "0x2222222222222222222222222222222222222222",
+      "label": "x402 Inc. search API (synthetic)",
+      "perTransactionMaxAtomic": "100000"
+    },
+    {
+      "id": "x402inc-finance-api",
+      "payTo": "0x3333333333333333333333333333333333333333",
+      "label": "x402 Inc. finance API (synthetic)",
+      "perTransactionMaxAtomic": "500000"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+
+> cloudflare-conformance@0.0.0 allowlist
+> node scripts/gen-allowlist.mjs
+
+gen-allowlist: policy=data/spend-policy.json provider=local-allowlist
+gen-allowlist: wrote 3 payee(s) -> out/wallet/payee-allowlist.json
+  network=base asset=0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 decimals=6
+  perTransactionMaxAtomic=500000 totalMaxAtomic=5000000
+    - x402inc-data-api 0x1111111111111111111111111111111111111111 perTxnMaxAtomic=500000 (x402 Inc. data API (synthetic))
+    - x402inc-search-api 0x2222222222222222222222222222222222222222 perTxnMaxAtomic=100000 (x402 Inc. search API (synthetic))
+    - x402inc-finance-api 0x3333333333333333333333333333333333333333 perTxnMaxAtomic=500000 (x402 Inc. finance API (synthetic))
+
+gen-allowlist: sample authorization decisions (local enforcement)
+  [ALLOW] allow: small payment to data API
+          payee=x402inc-data-api amountAtomic=200000 projectedSpentAtomic=200000
+  [DENY ] deny: over per-transaction cap
+          payee=x402inc-data-api amountAtomic=600000 projectedSpentAtomic=600000
+            - (per-transaction-exceeded) amount 600000 exceeds per-transaction cap 500000
+  [DENY ] deny: over payee-override cap (search API, 0.100)
+          payee=x402inc-search-api amountAtomic=200000 projectedSpentAtomic=200000
+            - (per-transaction-exceeded) amount 200000 exceeds per-transaction cap 100000
+  [DENY ] deny: payee not on allowlist
+          payee=— amountAtomic=50000 projectedSpentAtomic=50000
+            - (payee-not-allowed) payTo "0x9999999999999999999999999999999999999999" is not in the allowlist
+  [DENY ] deny: would exceed total cap (already spent 4.900)
+          payee=x402inc-finance-api amountAtomic=200000 projectedSpentAtomic=5100000
+            - (total-cap-exceeded) projected spend 5100000 exceeds total cap 5000000
