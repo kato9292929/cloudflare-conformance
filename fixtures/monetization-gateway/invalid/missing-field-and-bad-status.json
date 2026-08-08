@@ -1,0 +1,21 @@
+{
+  "name": "INVALID: wrong status (200), text content-type, accept missing payTo, amount not atomic",
+  "request": { "method": "GET", "path": "/v1/data", "url": "https://api.x402.example/v1/data" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "text/plain" },
+    "body": {
+      "x402Version": 1,
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "base",
+          "maxAmountRequired": "0.01",
+          "resource": "https://api.x402.example/v1/data",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "maxTimeoutSeconds": 60
+        }
+      ]
+    }
+  }
+}

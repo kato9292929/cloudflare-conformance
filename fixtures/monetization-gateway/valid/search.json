@@ -1,0 +1,24 @@
+{
+  "name": "valid 402 for POST /v1/search/companies (search-query, pathPrefix)",
+  "request": { "method": "POST", "path": "/v1/search/companies", "url": "https://api.x402.example/v1/search/companies" },
+  "response": {
+    "status": 402,
+    "headers": { "Content-Type": "application/json" },
+    "body": {
+      "x402Version": 1,
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "base",
+          "maxAmountRequired": "25000",
+          "resource": "https://api.x402.example/v1/search/companies",
+          "description": "paid resource (search)",
+          "mimeType": "application/json",
+          "payTo": "0x0000000000000000000000000000000000000000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "maxTimeoutSeconds": 60
+        }
+      ]
+    }
+  }
+}

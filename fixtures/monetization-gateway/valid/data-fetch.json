@@ -1,0 +1,24 @@
+{
+  "name": "valid 402 for GET /v1/data (data-fetch-basic)",
+  "request": { "method": "GET", "path": "/v1/data", "url": "https://api.x402.example/v1/data" },
+  "response": {
+    "status": 402,
+    "headers": { "Content-Type": "application/json; charset=utf-8" },
+    "body": {
+      "x402Version": 1,
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "base",
+          "maxAmountRequired": "10000",
+          "resource": "https://api.x402.example/v1/data",
+          "description": "paid resource (data-fetch)",
+          "mimeType": "application/json",
+          "payTo": "0x0000000000000000000000000000000000000000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "maxTimeoutSeconds": 60
+        }
+      ]
+    }
+  }
+}

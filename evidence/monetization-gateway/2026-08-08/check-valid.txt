@@ -1,0 +1,10 @@
+### valid fixtures (expect all pass) ###
+x402-check: 2 fixture(s) in fixtures/monetization-gateway/valid (mode=expect-ok, rules=data/billing-rules.json)
+
+[PASS] data-fetch.json — valid 402 for GET /v1/data (data-fetch-basic)
+        ok=true matchedRule=data-fetch-basic problems=0
+[PASS] search.json — valid 402 for POST /v1/search/companies (search-query, pathPrefix)
+        ok=true matchedRule=search-query problems=0
+
+x402-check: 2/2 met expectation "expect-ok".
+exit=0

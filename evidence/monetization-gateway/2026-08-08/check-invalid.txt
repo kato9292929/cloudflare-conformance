@@ -1,0 +1,20 @@
+### invalid fixtures (expect all correctly rejected) ###
+x402-check: 3 fixture(s) in fixtures/monetization-gateway/invalid (mode=expect-fail, rules=data/billing-rules.json)
+
+[PASS] amount-mismatch.json — INVALID: /v1/data advertises 9999 but rule expects 10000
+        ok=false matchedRule=data-fetch-basic problems=1
+          - (rule-amount) accepts[0].maxAmountRequired "9999" != rule "data-fetch-basic" expected "10000" (0.010 USDC @ 6 decimals)
+[PASS] missing-field-and-bad-status.json — INVALID: wrong status (200), text content-type, accept missing payTo, amount not atomic
+        ok=false matchedRule=data-fetch-basic problems=6
+          - (status) expected HTTP 402, got 200
+          - (content-type) Content-Type must be application/json, got "text/plain"
+          - (accept-field) accepts[0].payTo is required
+          - (amount-format) accepts[0].maxAmountRequired "0.01" must be an atomic-unit integer string
+          - (rule-amount) accepts[0].maxAmountRequired "0.01" != rule "data-fetch-basic" expected "10000" (0.010 USDC @ 6 decimals)
+          - (rule-payto) accepts[0].payTo != rule "data-fetch-basic" payTo
+[PASS] no-matching-rule.json — INVALID: 402 for an unpriced path with no matching billing rule
+        ok=false matchedRule=— problems=1
+          - (no-rule) accepts[0]: no billing rule matches GET /v1/unpriced — a 402 without a rule is unexpected
+
+x402-check: 3/3 met expectation "expect-fail".
+exit=0

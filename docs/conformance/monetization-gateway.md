@@ -9,15 +9,27 @@
 公開状態: 2026-07-01発表、waitlist、一般提供前（タスク前提）。したがって差し替えは行わず、差し替え可能な境界のみ作る。
 
 ## 実装したもの
-（M2で記載）
+- `data/billing-rules.json` — 課金ルールの宣言的定義（パス、価格、通貨、ネットワーク）。実装から独立した唯一の真実。スキーマ`x402inc.billing-rules/v0`は**自社定義（UNVERIFIED）**で、Cloudflareの用語に寄せていない。
+- `src/x402/rules.mjs` — ルールの読み込み・検証（不正スキーマ/不正金額は例外）、`resolveRule(path, method)`、および小数→アトミック単位の変換（`decimalToAtomic`, BigIntによる厳密計算。浮動小数点は使わない）。
+- `src/x402/checker.mjs` — 402レスポンスの形状（status=402 / `application/json` / `x402Version` / `accepts[]`の必須フィールドと型 / `maxAmountRequired`がアトミック整数文字列）を静的検査し、さらにbilling-rulesと突き合わせ（network/asset/scheme/金額/payTo）。**問題はすべて列挙して報告し、デフォルト値で通さない**。
+- `src/x402/gateway-adapter.mjs` — アダプタ境界。`localProvider`（billing-rules→x402 accepts、現行の自前実装）と`gatewayProvider`（Gatewayルール形式への写像。**未実装で例外**、推測しない）を同一インターフェースで提供。差し替え点だけを用意し、今は差し替えない。
+- fixtures: `fixtures/monetization-gateway/valid/*`（正常）と `invalid/*`（金額不一致・status誤り・content-type誤り・必須欠落・非アトミック金額・ルール不在）。
+- CLI: `scripts/x402-check.mjs`（`--expect-ok` / `--expect-fail`）。
 
 ## この環境で確認したこと
-（M2で記載）
+- `test/x402.test.mjs`（12件）全pass。小数→アトミック変換、ルール解決、検査器の各違反検出、アダプタ境界（localは検査器と整合、gatewayは例外）を確認。
+- CLI実行:
+  - valid fixtures を `--expect-ok` で実行 → 2/2 PASS（exit 0）。
+  - invalid fixtures を `--expect-fail` で実行 → 3/3 が正しく拒否（検出された具体的な違反を出力）。
+- 生出力: `evidence/monetization-gateway/2026-08-08/`（`check-valid.txt`, `check-invalid.txt`, `test-output.txt`）。
 
 ## 未消化（区分B）
 - waitlist通過後の実ルール投入。
 - エッジでの実課金挙動の確認。
 - Gateway側のルール記述フォーマットの一次仕様取得。
 
-## 自社定義（UNVERIFIED）
-（M2で記載: 課金ルールファイルのスキーマ）
+## 自社定義（UNVERIFIED / PENDING-B）
+- **billing-rules スキーマ `x402inc.billing-rules/v0`** → `UNVERIFIED`。Gatewayのルール記述形式が未公開のため、Gateway固有項目は一切埋めていない。フィールド名はCloudflare用語に似せていない（`src/x402/rules.mjs`）。
+- **402ボディのx402フィールド集合**（`x402Version`/`accepts[]`の必須項目）→ `PENDING-B`。x402プロトコルの知識に基づく検査だが、x402仕様本文とGateway自身の402契約はこの環境から未取得（`src/x402/checker.mjs`）。
+- **Gatewayルール形式への写像**（`gatewayProvider`）→ `PENDING-B`。未実装。形式が公開されるまで推測しない（`src/x402/gateway-adapter.mjs`）。
+- 既定の`asset`/`payTo`はプレースホルダ（`0x…0`等）であり、本番値ではない。
